@@ -32,7 +32,7 @@ Format: ![Alt Text](url)
 
 Data Visualisasi
 ================
-![DatVis]('/dashboard/Data Visualization.png')
+![DatVis](/dashboard/Data%20Visualization.png)
 
 
 Predict Page
@@ -47,5 +47,5 @@ Result Page
 
 Insert New Data
 ===============
-![Insert New Data]('/dashboard/Insert New Data.png')
+![Insert New Data](/dashboard/Insert%20New%20Data.png)
 
