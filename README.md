@@ -3,7 +3,7 @@
 HOME CREDIT DEFAULT RISK
 ========================
 dataset : bersih.csv
-source : [Kaggle] (https://www.kaggle.com/c/home-credit-default-risk/)
+source : [Kaggle](https://www.kaggle.com/c/home-credit-default-risk/)
 
 Desription
 ==========
@@ -19,6 +19,6 @@ Memperkecil kerugian dari orang-orang yang gagal bayar namun tidak terlalu banya
 
 ## APPS
 
--- Homepage
+Homepage
 ========
-
+<img 
