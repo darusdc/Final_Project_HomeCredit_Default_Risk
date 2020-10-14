@@ -22,30 +22,30 @@ Memperkecil kerugian dari orang-orang yang gagal bayar namun tidak terlalu banya
 
 Homepage
 ========
-![Homepage](/Dashboard/Home.png)
+![Homepage](/dashboard/Home.png)
 Format: ![Alt Text](url)
 
 Tentang
 =======
-![Tentang](/Dashboard/Tentang.png)
+![Tentang](/dashboard/Tentang.png)
 Format: ![Alt Text](url)
 
 Data Visualisasi
 ================
-![DatVis](/Dashboard/Data Visualization.png)
+![DatVis](/dashboard/Data Visualization.png)
 Format: ![Alt Text](url)
 
 Predict Page
 ============
-![Predict](/Dashboard/Predict.png)
+![Predict](/dashboard/Predict.png)
 Format: ![Alt Text](url)
 
 Result Page
 ===========
-![Result](/Dashboard/Hasil.png)
+![Result](/dashboard/Hasil.png)
 Format: ![Alt Text](url)
 
 Insert New Data
 ===============
-![Insert New Data](/Dashboard/Insert New Data.png)
+![Insert New Data](/dashboard/Insert New Data.png)
 Format: ![Alt Text](url)
