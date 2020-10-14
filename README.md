@@ -28,7 +28,6 @@ Homepage
 Tentang
 =======
 ![Tentang](/dashboard/Tentang.png)
-Format: ![Alt Text](url)
 
 Data Visualisasi
 ================
