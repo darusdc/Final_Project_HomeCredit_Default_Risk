@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+ {% block content %}
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-6-text-left">
+                        <h5 class="card-category">Persebaran Data</h5>
+                        <h2 class="card-title">Home Credit Default Risk</h2>
+                    </div>
+                    <div class="col-md-auto">
+                        <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                            {%for i in cat%}
+                                {% if i[0]==focus%}
+                            <label class="btn btn-sm btn-primary btn-simple active" id="{{i[0]}}">
+                                <input type="radio" name="options" checked>
+                                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                                    {{i[1]}}
+                                </span>
+                                <span class="d-block d-sm-none">
+                                    <i class="tim-icons icon-single-02"></i>
+                                </span>
+                            </label>
+                            {% else %}
+                            <label class="btn btn-sm btn-primary btn-simple" id="{{i[0]}}">
+                                <input type="radio" name="options">
+                                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                                    {{i[1]}}
+                                </span>
+                                <span class="d-block d-sm-none">
+                                    <i class="tim-icons icon-single-02"></i>
+                                </span>
+                            </label>
+                            {% endif%}
+                            {%endfor%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-area"> 
+                    <canvas id="chartDoc"></canvas>
+                    <script>
+                        var myChartData=new Chart(document.getElementById("chartDoc"),{
+                            "type":"doughnut",
+                            "data":{
+                                "labels":[{%for i in data[focus].unique()%} '{{i}}',{%endfor%}],
+                                "datasets":[{"label":"My First Dataset",
+                                "data":[{%for i in data[focus].value_counts()%} {{i}},{%endfor%}],
+                                "backgroundColor":[{%for i in color[:data[focus].nunique()]%} "{{i}}",{%endfor%}]}]}});
+                        {%for x in cat%}
+                        document.getElementById("{{x[0]}}").addEventListener('click',function(){
+                            var chart_data=[{%for i in data[x[0]].value_counts()%} {{i}},{%endfor%}];
+                            var chart_labels=[{%for i in data[x[0]].unique()%} '{{i}}',{%endfor%}];
+                            var data=myChartData.config.data;
+                            data.datasets[0].data=chart_data;
+                            data.datasets[0].backgroundColor=[{%for i in color[:data[x[0]].nunique()]%} "{{i}}",{%endfor%}];
+                            data.labels=chart_labels;
+                            myChartData.update();
+                        });
+                        {%endfor%}
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

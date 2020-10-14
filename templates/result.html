@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+ {% block content %}
+ <div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="title">Predict Risk</h3>
+            </div>
+            <div class="card-body">
+                {% if predict[0]==0%}
+                {% if predict_proba[0][predict[0]]*100 < 50.5 %}
+                <div class="alert alert-warning">
+                    <!-- <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="tim-icons icon-simple-remove"></i>
+                    </button> -->
+                    <span><b> PIF - </b> {{predict_proba[0][predict[0]]*100}} kemungkinan kredit ini akan dibayar penuh</span>
+                  </div>
+                  {%else%}
+                  <div class="alert alert-success">
+                    <!-- <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="tim-icons icon-simple-remove"></i>
+                    </button> -->
+                    <span><b> PIF - </b> {{predict_proba[0][predict[0]]*100}} kemungkinan kredit ini akan dibayar penuh</span>
+                  </div>
+                  {%endif%}
+                {% else %}
+                <div class="alert alert-danger">
+                    <!-- <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="tim-icons icon-simple-remove"></i>
+                    </button> -->
+                    <span><b> Kesulitan Membayar - </b> {{predict_proba[0][predict[0]]*100}} % kemungkinan kredit ini akan mengalami kesulitan bayar</span>
+                  </div>
+                {% endif %}
+                <button type="button"><a href="{{url_for('predict')}}">Prediksi yang lain</a></button>
+            </div>
+        </div>
+    </div>
+ </div>
+ {%endblock%}

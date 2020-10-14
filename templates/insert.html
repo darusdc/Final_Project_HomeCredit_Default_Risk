@@ -1,0 +1,150 @@
+{% extends 'layout.html'%}
+{%block content%}
+<div class="row">
+    <div class="col-lg-10">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">100 Latest Data</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="table-responsive" style="max-height: 600px;">
+                        <table class="table-sm table-hover table-bordered table-striped table-fixed">
+                            <thead class='thead'>
+                                <tr>
+                                    {% for i in data.columns%}
+                                        <th scope="col">{{i}}</th>
+                                    {%endfor%}
+                                </tr>
+                            </thead>
+                            <tbody style="max-height: 400px !important; overflow: scroll;">
+                                {% for i in data_table%}
+                                {%if i[1]==1%}
+                                <tr class="table-danger">
+                                {%else%}
+                                <tr class="table-success">
+                                {%endif%}
+                                    {%for x in i%}
+                                    {%if i.index(x)==0%}
+                                    <th scope="row">{{x}}</th>
+                                    {%else%}
+                                    <td>{{x}}</td>
+                                    {%endif%}
+                                    {%endfor%}
+                                </tr>
+                                {%endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">Inser New Data</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{url_for('progress')}}">
+                    <div class="row">
+                    {% for x in data.columns%}
+                    {%if x!='No'%}
+                    {% if x=='CNT_CHILDREN' or x=='CNT_FAM_MEMBERS' %}
+                    <div class="col-md-5 pl-md-1">
+                       <div class="form-group">
+                           <label class="input-group-text" id="label-{{x}}">{{x.replace('_'," ")}} :</label>
+                           <input type="text" class="form-control" id="{{x}}" name="{{x}}" placeholder="Enter {{x.replace('_',' ')}} here" aria-label="{{x}}" aria-describedby="txt{{x}}" required>
+                       </div>
+                   </div>
+                   {% else %}
+                       {% if data[x].nunique()<=11%}
+                       <div class="col-md-5 px-md-1">
+                           <div class="form-group">
+                               <label class="input-group-text" for="{{x}}">{{x.replace('_',' ')}} :</label>
+                           </div>
+                           <select class="form-control" id="{{x}}" name="{{x}}" required>
+                               {% for i in data[x].unique()%}
+                               <option value="{{i}}">{{i}}</button>
+                               {% endfor%}
+                           </select>
+                       </div>
+                       {%else%}
+                       <div class="col-md-5 pl-md-1">
+                           <div class="form-group">
+                               <label class="input-group-text" id="label-{{x}}">{{x.replace('_'," ")}} : <span class="badge badge-warning" id="err-{{x}}"></span></label>
+                               <input type="text" class="form-control" id="{{x}}" name="{{x}}" placeholder="Enter {{x.replace('_',' ')}} here" aria-label="{{x}}" aria-describedby="txt{{x}}" required>
+                           </div>
+                       </div>
+                       {%endif%}
+                   {%endif%}
+                   {%endif%}
+                   {%endfor%}
+                   <button type="submit" class="btn btn-primary justify-content-round">submit</button>
+                   </div>
+                </form>
+                <script>
+                       window.onload = function(){
+                       //get elements  
+                       var credit = document.getElementById("AMT_CREDIT");
+                       var cicilan = document.getElementById('AMT_ANNUITY');
+                       var harbar = document.getElementById("AMT_GOODS_PRICE"); 
+                       var income = document.getElementById("AMT_INCOME_TOTAL");
+                       //select event
+                       cicilan.onkeyup = function(){
+                           var percent= parseInt(cicilan.value)/parseInt(credit.value)*100;
+                           console.log(percent);
+                           if( percent < 2 ||percent>13 ){
+                               document.getElementById('err-AMT_ANNUITY').innerText='Angka cicilan tidak normal! \n pastikan angka ini berada di kisaran 2-13% dari angka credit!'
+                           }else{
+                               document.getElementById('err-AMT_ANNUITY').innerText=''
+                           }
+                       };
+                       harbar.onkeyup=function(){
+                           var percent = parseInt(harbar.value)/parseInt(credit.value)*100;
+                           console.log(percent);
+                           if (percent <16 || percent > 666){
+                               document.getElementById('err-AMT_GOODS_PRICE').innerText='Harga barang tidak normal!'
+                           }else{
+                               document.getElementById('err-AMT_GOODS_PRICE').innerText=''
+                           }
+                       };
+                       income.onkeyup=function(){
+                           var percent = parseInt(cicilan.value)/parseInt(income.value)*100;
+                           console.log(percent);
+                           if (percent <0 || percent > 40){
+                               document.getElementById('err-AMT_INCOME_TOTAL').innerText='Pemasukan kurang!'
+                           }else{
+                               document.getElementById('err-AMT_INCOME_TOTAL').innerText=''
+                           }
+                       }
+                     }
+                     function check(){
+                         var drop_cbc=document.getElementById('cbc_drop');
+                         var drop_pa=document.getElementById('PA_drop');
+                         var drop_pcb=document.getElementById('PCB_drop');
+                         var cur_val_cbc=drop_cbc.options[drop_cbc.selectedIndex].value;
+                         var cur_val_pa=drop_pa.options[drop_pa.selectedIndex].value;
+                         var cur_val_pcb=drop_pcb.options[drop_pcb.selectedIndex].value;
+
+                         if (cur_val_cbc=='CBCYes') {
+                             document.getElementById('cbc').style.display='block';
+                         } else {
+                             document.getElementById('cbc').style.display='none';
+                         }
+                         if (cur_val_cbc=='PAYes') {
+                             document.getElementById('PA').style.display='block';
+                         } else {
+                             document.getElementById('PA').style.display='none';
+                         }
+                         if (cur_val_cbc=='PCBYes') {
+                             document.getElementById('PCB').style.display='block';
+                         } else {
+                             document.getElementById('PCB').style.display='none';
+                         }
+                     }                    
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}
