@@ -227,7 +227,7 @@ def predict():
 @app.route('/result',methods=['POST'])
 def result():
     data1=data.copy()
-    data1=data1.drop(['TARGET','index'],axis=1)
+    data1=data1.drop(['TARGET'],axis=1)
     data1['CILUT']=data['AMT_ANNUITY']/data['AMT_CREDIT']*100
     data1['CILMAS']=data['AMT_ANNUITY']/data['AMT_INCOME_TOTAL']*100
     data1['RUTHAR']=data['AMT_GOODS_PRICE']/data['AMT_CREDIT']*100
@@ -287,7 +287,7 @@ def progress():
                     else:
                         data_comp[data.columns[i]]=float(input_user[i-1])
     data=data.append(data_comp,ignore_index=True)
-    data.drop('index',axis=1).iloc[[-1]].to_sql('data',con2,if_exists='append',index=True)
+    data.iloc[[-1]].to_sql('data',con2,if_exists='append',index=True)
     return render_template('sukses.html')
 if __name__== "__main__":
     # ml=joblib.load('model_rfc_ros')
