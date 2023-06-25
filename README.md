@@ -6,6 +6,8 @@ dataset : [bersih.csv](https://1drv.ms/u/s!AonvriEjp9WSgvhT3usecUrbJRWsbg?e=zHrl
 
 source : [Kaggle](https://www.kaggle.com/c/home-credit-default-risk/)
 
+Live Apps : [Home Credit Default Risk](http://103.157.97.17:3500/)
+
 Desription
 ==========
 Home Credit merupakan perusahaan pembiayaan multiguna yang memberikan layanan pembiayaan bagi pelanggan yang berbelanja secara online maupun offline. home credit juga menyediakan pembiayaan multiguna bagi pelanggan setia kami agar mereka dapat memenuhi kebutuhan finansial mereka.
